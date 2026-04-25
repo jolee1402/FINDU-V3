@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FINDU - All in One</title>
+    <style>
+        :root {
+            --emerald: #064E3B;
+            --emerald-light: #065F46;
+            --gold: #D97706;
+            --white: #FFFFFF;
+            --gray: #F3F4F6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--gray);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        /* Notifikasi / Toast */
+        #toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background-color: var(--emerald);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 1000;
+            border-left: 5px solid var(--gold);
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .container {
+            background-color: var(--white);
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--emerald);
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .lang-switch {
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .lang-btn {
+            background: none;
+            border: 1px solid var(--emerald);
+            color: var(--emerald);
+            padding: 4px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            transition: 0.3s;
+        }
+
+        .lang-btn.active {
+            background-color: var(--emerald);
+            color: var(--white);
+        }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.4rem;
+            color: var(--emerald);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #D1D5DB;
+            border-radius: 0.8rem;
+            box-sizing: border-box;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus { border-color: var(--gold); }
+
+        .btn-main {
+            width: 100%;
+            background-color: var(--emerald);
+            color: var(--white);
+            padding: 14px;
+            border: none;
+            border-radius: 0.8rem;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-main:hover { background-color: var(--emerald-light); }
+
+        .footer-text { margin-top: 1.5rem; font-size: 0.85rem; color: #6B7280; }
+        .footer-text a { color: var(--gold); text-decoration: none; font-weight: bold; cursor: pointer; }
+
+        /* Sembunyikan bagian secara default */
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <div id="toast">Notifikasi</div>
+
+    <div id="login-page" class="container">
+        <div class="logo">FINDU</div>
+        <p class="tagline" data-key="tagline">Proteksi Finansial Masa Depan</p>
+
+        <div class="lang-switch">
+            <button class="lang-btn active" onclick="setLanguage('id')">ID</button>
+            <button class="lang-btn" onclick="setLanguage('en')">EN</button>
+            <button class="lang-btn" onclick="setLanguage('cn')">中文</button>
+        </div>
+
+        <form onsubmit="showNotify(event)">
+            <div class="form-group">
+                <label data-key="user">Email / Username</label>
+                <input type="text" required>
+            </div>
+            <div class="form-group">
+                <label data-key="pass">Kata Sandi</label>
+                <input type="password" required>
+            </div>
+            <button type="submit" class="btn-main" data-key="btn_login">MASUK</button>
+        </form>
+
+        <div class="footer-text">
+            <span data-key="no_acc">Belum punya akun?</span> 
+            <a onclick="switchPage('register')" data-key="reg_now">Daftar Sekarang</a>
+        </div>
+    </div>
+
+    <div id="register-page" class="container hidden">
+        <div class="logo">FINDU</div>
+        <p class="tagline" data-key="tagline">Proteksi Finansial Masa Depan</p>
+
+        <div class="lang-switch">
+            <button class="lang-btn active" onclick="setLanguage('id')">ID</button>
+            <button class="lang-btn" onclick="setLanguage('en')">EN</button>
+            <button class="lang-btn" onclick="setLanguage('cn')">中文</button>
+        </div>
+
+        <form onsubmit="showNotify(event)">
+            <div class="form-group">
+                <label data-key="full_name">Nama Lengkap</label>
+                <input type="text" required>
+            </div>
+            <div class="form-group">
+                <label data-key="role">Daftar Sebagai</label>
+                <select>
+                    <option data-key="opt_student">Pelajar</option>
+                    <option data-key="opt_umkm">UMKM</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label data-key="pass">Kata Sandi</label>
+                <input type="password" required>
+            </div>
+            <button type="submit" class="btn-main" data-key="btn_reg">DAFTAR SEKARANG</button>
+        </form>
+
+        <div class="footer-text">
+            <span data-key="have_acc">Sudah punya akun?</span> 
+            <a onclick="switchPage('login')" data-key="log_now">Masuk</a>
+        </div>
+    </div>
+
+    <script>
+        const i18n = {
+            id: {
+                tagline: "Proteksi Finansial Masa Depan",
+                user: "Email / Username",
+                pass: "Kata Sandi",
+                full_name: "Nama Lengkap",
+                role: "Daftar Sebagai",
+                opt_student: "Pelajar",
+                opt_umkm: "UMKM",
+                btn_login: "MASUK",
+                btn_reg: "DAFTAR SEKARANG",
+                no_acc: "Belum punya akun?",
+                reg_now: "Daftar Sekarang",
+                have_acc: "Sudah punya akun?",
+                log_now: "Masuk",
+                notif: "Permintaan sedang diproses..."
+            },
+            en: {
+                tagline: "Future Financial Protection",
+                user: "Email / Username",
+                pass: "Password",
+                full_name: "Full Name",
+                role: "Register As",
+                opt_student: "Student",
+                opt_umkm: "UMKM Owner",
+                btn_login: "LOGIN",
+                btn_reg: "REGISTER NOW",
+                no_acc: "No account?",
+                reg_now: "Register Now",
+                have_acc: "Already have an account?",
+                log_now: "Login",
+                notif: "Processing request..."
+            },
+            cn: {
+                tagline: "未来的财务保护",
+                user: "用户名",
+                pass: "密码",
+                full_name: "全名",
+                role: "身份",
+                opt_student: "学生",
+                opt_umkm: "中小微企业",
+                btn_login: "登录",
+                btn_reg: "现在注册",
+                no_acc: "没有账户？",
+                reg_now: "现在注册",
+                have_acc: "已有账户？",
+                log_now: "登录",
+                notif: "正在处理请求..."
+            }
+        };
+
+        let currentLang = 'id';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (i18n[lang][key]) {
+                    if (el.tagName === 'OPTION') el.text = i18n[lang][key];
+                    else el.innerText = i18n[lang][key];
+                }
+            });
+
+            // Update active button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.innerText.toLowerCase().includes(lang === 'cn' ? '中文' : lang));
+            });
+        }
+
+        function switchPage(page) {
+            const login = document.getElementById('login-page');
+            const register = document.getElementById('register-page');
+            
+            if (page === 'register') {
+                login.classList.add('hidden');
+                register.classList.remove('hidden');
+            } else {
+                register.classList.add('hidden');
+                login.classList.remove('hidden');
+            }
+        }
+
+        function showNotify(e) {
+            e.preventDefault();
+            const toast = document.getElementById('toast');
+            toast.innerText = i18n[currentLang].notif;
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 3000);
+        }
+    </script>
+</body>
+</html>
