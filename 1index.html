@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FINDU - Dashboard Utama</title>
+    <style>
+        :root {
+            --emerald: #064E3B;
+            --emerald-light: #065F46;
+            --gold: #D97706;
+            --white: #FFFFFF;
+            --gray: #F3F4F6;
+            --danger: #991B1B;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--gray);
+            margin: 0;
+            display: flex;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: var(--emerald);
+            height: 100vh;
+            color: white;
+            padding: 2rem 1rem;
+            position: fixed;
+        }
+
+        .sidebar .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--gold);
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .menu-item {
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .menu-item:hover, .menu-item.active {
+            background-color: var(--emerald-light);
+            border-left: 4px solid var(--gold);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            padding: 2rem;
+            width: 100%;
+        }
+
+        .welcome-section {
+            margin-bottom: 2rem;
+        }
+
+        .welcome-section h1 {
+            color: var(--emerald);
+            margin: 0;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 1.2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: #6B7280;
+            font-size: 0.9rem;
+        }
+
+        .amount {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--emerald);
+        }
+
+        /* Auto-Sweeping Visualization */
+        .sweeping-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 1rem;
+            background: var(--gray);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .sweeping-item {
+            text-align: center;
+            flex: 1;
+        }
+
+        .sweeping-item small { color: #6B7280; }
+        .sweeping-item div { font-weight: bold; color: var(--gold); }
+
+        /* Anti-Debt Shield Alert */
+        .alert-box {
+            background-color: #FEF2F2;
+            border-left: 5px solid var(--danger);
+            padding: 1rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .alert-box span { color: var(--danger); font-weight: bold; }
+
+        /* Credit Score Bar */
+        .score-bar-bg {
+            background: #E5E7EB;
+            height: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .score-bar-fill {
+            background: var(--gold);
+            height: 10px;
+            border-radius: 5px;
+            width: 75%; /* Simulasi Skor 750 */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="logo">FINDU</div>
+        <div class="menu-item active">Dashboard</div>
+        <div class="menu-item">Lumbung Digital</div>
+        <div class="menu-item">Proteksi Shield</div>
+        <div class="menu-item">Riwayat API</div>
+        <div class="menu-item">Pengaturan</div>
+    </div>
+
+    <div class="main-content">
+        <div class="welcome-section">
+            <h1>Selamat Datang, <span id="username">User</span>! 👋</h1>
+            <p style="color: #6B7280;">Sistem FINDU telah mengamankan keuanganmu hari ini.</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="card">
+                <h3>Total Dana Masuk (Hari Ini)</h3>
+                <div class="amount">Rp 2.500.000</div>
+                <div class="sweeping-box">
+                    <div class="sweeping-item">
+                        <small>Pribadi</small>
+                        <div>Rp 1.750.000</div>
+                    </div>
+                    <div style="color: var(--emerald);">➔</div>
+                    <div class="sweeping-item">
+                        <small>Lumbung Modal</small>
+                        <div>Rp 750.000</div>
+                    </div>
+                </div>
+                <p style="font-size: 0.75rem; color: var(--emerald-light); margin-top: 10px;">✨ <i>Auto-Sweeping aktif via API Bank</i></p>
+            </div>
+
+            <div class="card">
+                <h3>Lumbung Credit Score</h3>
+                <div class="amount">750 <span style="font-size: 1rem; color: #10B981;">(Sangat Baik)</span></div>
+                <div class="score-bar-bg">
+                    <div class="score-bar-fill"></div>
+                </div>
+                <p style="font-size: 0.8rem; margin-top: 10px;">Kamu berpeluang mendapatkan modal usaha lebih tinggi!</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3 style="color: var(--danger);">🛡️ Anti-Debt Shield Protection</h3>
+            <div class="alert-box">
+                <div style="font-size: 1.5rem;">⚠️</div>
+                <div>
+                    <span>Peringatan Terdeteksi!</span>
+                    <p style="margin: 2px 0 0 0; font-size: 0.85rem; color: #4B5563;">Ada percobaan akses dari aplikasi pinjaman tidak resmi pada pukul 14:05. Akses otomatis diblokir oleh FINDU.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Simulasi mengambil nama dari login (localStorage)
+        window.onload = function() {
+            const storedName = localStorage.getItem('findu_user') || 'Pengusaha Muda';
+            document.getElementById('username').innerText = storedName;
+        };
+    </script>
+
+</body>
+</html>
